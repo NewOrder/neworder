@@ -18,7 +18,7 @@
     <url>http://maven.apache.org</url>
 
     <properties>
-        <maven-surefire-common.version>2.11</maven-surefire-common.version>
+        <maven-surefire-common.version>2.12</maven-surefire-common.version>
     </properties>
 
     <dependencies>
