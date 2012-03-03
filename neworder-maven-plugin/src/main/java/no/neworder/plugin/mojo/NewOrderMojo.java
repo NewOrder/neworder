@@ -25,6 +25,7 @@ import org.apache.maven.artifact.resolver.ArtifactResolver;
 import org.apache.maven.execution.MavenSession;
 import org.apache.maven.plugin.MojoExecutionException;
 import org.apache.maven.plugin.MojoFailureException;
+import org.apache.maven.plugin.descriptor.PluginDescriptor;
 import org.apache.maven.plugin.surefire.AbstractSurefireMojo;
 import org.apache.maven.plugin.surefire.Summary;
 import org.apache.maven.plugin.surefire.SurefireHelper;
@@ -47,7 +48,7 @@ import java.util.Properties;
  * @phase test
  * @threadSafe
  */
-public class NewOrderMojo extends AbstractSurefireMojo implements SurefireReportParameters {
+public class NewOrderMojo extends AbstractNewOrderMojo implements SurefireReportParameters {
 
     /**
      * Set this to "true" to skip running tests, but still compile them. Its use is NOT RECOMMENDED, but quite
@@ -615,11 +616,6 @@ public class NewOrderMojo extends AbstractSurefireMojo implements SurefireReport
     private ToolchainManager toolchainManager;
 
     @Override
-    public void execute() throws MojoExecutionException, MojoFailureException {
-        super.execute();
-    }
-
-    @Override
     protected String getPluginName() {
         return "neworder-maven-plugin";
     }
@@ -888,22 +884,27 @@ public class NewOrderMojo extends AbstractSurefireMojo implements SurefireReport
     }
 
     @Override
+    public PluginDescriptor getPluginDescriptor() {
+        return null;
+    }
+
+    @Override
     public Map getPluginArtifactMap() {
         return this.pluginArtifactMap;
     }
 
     @Override
-    public void setPluginArtifactMap(Map pluginArtifactMap) {
+    public void setPluginArtifactMap(Map<String,Artifact> pluginArtifactMap) {
         this.pluginArtifactMap = pluginArtifactMap;
     }
 
     @Override
-    public Map getProjectArtifactMap() {
+    public Map<String, Artifact> getProjectArtifactMap() {
         return this.projectArtifactMap;
     }
 
     @Override
-    public void setProjectArtifactMap(Map projectArtifactMap) {
+    public void setProjectArtifactMap(Map<String,Artifact> projectArtifactMap) {
         this.projectArtifactMap = projectArtifactMap;
     }
 
@@ -1265,6 +1266,15 @@ public class NewOrderMojo extends AbstractSurefireMojo implements SurefireReport
     @Override
     public void setToolchainManager(ToolchainManager toolchainManager) {
         this.toolchainManager = toolchainManager;
+    }
+
+    @Override
+    public Boolean getFailIfNoSpecifiedTests() {
+        return null;
+    }
+
+    @Override
+    public void setFailIfNoSpecifiedTests(Boolean failIfNoSpecifiedTests) {
     }
 
     @Override
